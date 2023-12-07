@@ -1,5 +1,6 @@
 import Header from './layouts/header'
 import VerticalBar from './layouts/verticalBar'
+import Dashboard from './layouts/dashboard';
 import './App.css';
 
 function App() {
@@ -7,7 +8,12 @@ function App() {
     <div className="App">
       <Header />
       <main>
-        <VerticalBar />   
+        <div className="verticalBarContainer">
+          <VerticalBar />   
+        </div>
+        <div className="dashboardContainer">
+          <Dashboard />          
+        </div>
       </main>
 
     </div>

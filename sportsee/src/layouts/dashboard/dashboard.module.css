@@ -1,0 +1,18 @@
+.dashboard__content {
+    padding: 50px 100px;
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: 500;
+    padding-bottom: 25px;
+}
+
+h1 .userName {
+    color: var(--secondary-color);
+}
+
+.personalizedMessage {
+    font-size: 18px;
+    font-weight: 400;
+}

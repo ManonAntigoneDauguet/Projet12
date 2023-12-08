@@ -1,10 +1,11 @@
 .verticalBar {
     background-color: var(--primary-color);
     width: 117px;    
+    height: 120%;
     position: absolute;    
     box-sizing: border-box;
     display: grid;
-    grid-template-rows: 190px 350px 380px; 
+    grid-template-rows: 100px auto auto; 
 }
 
 nav[aria-label = "nav-2"] {

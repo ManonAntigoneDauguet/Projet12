@@ -1,5 +1,11 @@
 .dashboard {
-    padding: 50px 100px;
+    padding: 40px 96px;
+}
+
+@media screen and (max-width: 900px) {
+    .dashboard {
+        padding: 30px;
+    }
 }
 
 h1 {
@@ -18,41 +24,72 @@ h1 .userName {
 }
 
 .dataContainer {
-    display: flex;
-    flex-direction: row-reverse;
-    padding-top: 62px;
+    display: grid;
+    gap: 32px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    padding-top: 68px;
+}
+
+@media screen and (max-width: 900px) {
+    .dataContainer {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 .nutrientCards {
+    grid-column: 4 / 5;
+    grid-row: 1 / 3;
     display: flex;
     flex-direction: column;
     gap: 38px;
 }
 
-.graphics {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 32px;
+@media screen and (max-width: 900px) {
+    .nutrientCards {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
 }
 
 .graph1 {
+    grid-column: 1 / 4;
+    grid-row: 1 / 2;
     background-color: gray;
-    width: 835px;
-    height: 320px;
+    width: 100%;
+    min-width: 100px;
+    height: 100%;
+    min-height: 50px;
     border-radius: 6px;
 }
 
 .graph2 {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
     background-color: red;
-    width: 263px;
-    height: 258px;
+    width: 100%;
+    min-width: 100px;
+    height: 100%;
+    min-height: 50px;
     border-radius: 6px;
 }
 
 .graph3, .graph4 {
     background-color: black;
-    width: 263px;
-    height: 258px;
+    width: 100%;
+    min-width: 100px;
+    min-height: 50px;
+    height: 100%;
     border-radius: 6px;
+}
+
+.graph3 {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
+
+.graph4 {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
 }

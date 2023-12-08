@@ -5,7 +5,7 @@ import img from "../../assets/cycling.svg"
 
 function NutrientCard() {
     return (
-        <article>
+        <article className={ style.nutrientCard }>
             <div className={ style.nutrientCard__content }>
                 <IconCard img={ img } />
                 <div className={ style.dataContainer }>

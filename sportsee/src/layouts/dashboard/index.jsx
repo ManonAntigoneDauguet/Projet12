@@ -17,12 +17,10 @@ function Dashboard() {
                         <NutrientCard />  
                         <NutrientCard />                        
                     </div>
-                    <div className={ style.graphics }>
-                        <div className={ style.graph1 }></div>
-                        <div className={ style.graph2 }></div>
-                        <div className={ style.graph3 }></div>
-                        <div className={ style.graph4 }></div>
-                    </div>
+                    <div className={ style.graph1 }></div>
+                    <div className={ style.graph2 }></div>
+                    <div className={ style.graph3 }></div>
+                    <div className={ style.graph4 }></div>
                 </section>
             </div>
         </div>

@@ -1,5 +1,5 @@
 import style from "./verticalBar.module.css"
-import NavCard from "../../components/navCard"
+import IconCard from "../../components/iconCard"
 import cyclingImg from "../../assets/cycling.svg"
 import bodybuildingImg from "../../assets/bodybuilding.svg"
 import meditationImg from "../../assets/meditation.svg"
@@ -10,19 +10,19 @@ function VerticalBar() {
     return (
         <div className={ style.verticalBar }>
             <nav aria-label="nav-2">
-                <NavCard
+                <IconCard
                     img={ meditationImg }
                     alt="méditation"
                 />
-                <NavCard 
+                <IconCard 
                     img={ swimmingImg }
                     alt="natation"
                 />
-                <NavCard 
+                <IconCard 
                     img={ cyclingImg }
                     alt="cyclisme"
                 />
-                <NavCard 
+                <IconCard 
                     img={ bodybuildingImg }
                     alt="musculation"
                 />

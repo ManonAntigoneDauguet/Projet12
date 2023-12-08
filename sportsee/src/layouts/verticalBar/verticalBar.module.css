@@ -4,7 +4,7 @@
     position: absolute;    
     box-sizing: border-box;
     display: grid;
-    grid-template-rows: 190px 350px 380px; 
+    grid-template-rows: 210px 350px 480px; 
 }
 
 nav[aria-label = "nav-2"] {

@@ -1,4 +1,4 @@
-.dashboard__content {
+.dashboard {
     padding: 50px 100px;
 }
 
@@ -15,4 +15,44 @@ h1 .userName {
 .personalizedMessage {
     font-size: 18px;
     font-weight: 400;
+}
+
+.dataContainer {
+    display: flex;
+    flex-direction: row-reverse;
+    padding-top: 62px;
+}
+
+.nutrientCards {
+    display: flex;
+    flex-direction: column;
+    gap: 38px;
+}
+
+.graphics {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 32px;
+}
+
+.graph1 {
+    background-color: gray;
+    width: 835px;
+    height: 320px;
+    border-radius: 6px;
+}
+
+.graph2 {
+    background-color: red;
+    width: 263px;
+    height: 258px;
+    border-radius: 6px;
+}
+
+.graph3, .graph4 {
+    background-color: black;
+    width: 263px;
+    height: 258px;
+    border-radius: 6px;
 }

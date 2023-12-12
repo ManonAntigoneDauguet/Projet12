@@ -1,71 +1,75 @@
 import style from "./dashboard.module.css"
-import mockedData from "../../mockedData/userMocked.json"
 import React from "react"
-import getUser from "../../services/callsAPI"
-import NutrientCard from "../../components/nutrientCard"
+import { getUser } from "../../services/callsAPI"
+import { formateData } from "../../utils/utilFunctions"
+import { useEffect, useState } from "react"
+// assets
 import calorieImg from "../../assets/energy.svg"
 import proteinImg from "../../assets/chicken.svg"
 import glucidImg from "../../assets/apple.svg"
 import lipidImg from "../../assets/cheeseburger.svg"
-import { useEffect, useState } from "react"
+// components
+import NutrientCard from "../../components/nutrientCard"
+import ActivityGraph from "../../components/graphics/activity"
+import ScoreGraph from "../../components/graphics/score"
+import AverageSessionsGraph from "../../components/graphics/averageSessions"
+import PerformanceGraph from "../../components/graphics/performance"
 
-
-function formateData(data) {
-    data = Array.from(String(data))
-    let length = data.length
-    if (length > 3) {
-        data.splice(length - 3, 0, ",")
-        data.push("k")
-    }
-    return data.join('')
-}
 
 function Dashboard() {
-    const [isLoadingGet, updateIsLoadingGet] = useState(false)
-    const [user, updateUser] = useState(mockedData.data)
+    const searchParams = new URLSearchParams(window.location.search)
+    const userId = searchParams.get("userId")
+    const [isLoadingGet, updateIsLoadingGet] = useState(true)
+    const [isError, updateIsError] = useState(false)
+    const [user, updateUser] = useState()
+    let nutrientCardsContent = []
 
     const getInformations = async() => {
-        updateIsLoadingGet(true)
-        const newUser = await getUser(12) 
+        const newUser = await getUser(userId, false) 
         if (typeof newUser === "object") { 
             updateUser(newUser.data)
+        } else {
+            updateIsError(true)
         }
         updateIsLoadingGet(false)
     }
-    const nutrientCardsContent = [
-        {
-            "id": 1,
-            "title": "Calories",
-            "img": { calorieImg },
-            "color": "red",
-            "data": `${ user.keyData.calorieCount }`,
-            "unit": "Cal"
-        },
-        {
-            "id": 2,
-            "title": "Protéines",
-            "img": { proteinImg },
-            "color": "blue",
-            "data": `${ user.keyData.proteinCount }`,
-            "unit": "g"
-        },
-        {
-            "id": 3,
-            "title": "Glucides",
-            "img": { glucidImg },
-            "color": "yellow",
-            "data": `${ user.keyData.carbohydrateCount }`,
-            "unit": "g"
-        },
-        {
-            "id": 4,
-            "title": "Lipides",
-            "img": { lipidImg },
-            "color": "pink",
-            "data": `${ user.keyData.lipidCount }`,
-            "unit": "g"
-        }
-    ]
+
+    if (typeof user === "object") {
+        nutrientCardsContent = [
+            {
+                "id": 1,
+                "title": "Calories",
+                "img": { calorieImg },
+                "color": "red",
+                "data": `${ user.keyData.calorieCount }`,
+                "unit": "Cal"
+            },
+            {
+                "id": 2,
+                "title": "Protéines",
+                "img": { proteinImg },
+                "color": "blue",
+                "data": `${ user.keyData.proteinCount }`,
+                "unit": "g"
+            },
+            {
+                "id": 3,
+                "title": "Glucides",
+                "img": { glucidImg },
+                "color": "yellow",
+                "data": `${ user.keyData.carbohydrateCount }`,
+                "unit": "g"
+            },
+            {
+                "id": 4,
+                "title": "Lipides",
+                "img": { lipidImg },
+                "color": "pink",
+                "data": `${ user.keyData.lipidCount }`,
+                "unit": "g"
+            }
+        ]        
+    }
 
     useEffect(() => {
         getInformations()
@@ -73,11 +77,11 @@ function Dashboard() {
 
     return (
         <div className={ style.dashboard }>
-            { !isLoadingGet ?
+            { !isLoadingGet && !isError &&
                 <div className={ style.dashboard__content }>
                     <section>
                         <h1>Bonjour <span className={ style.userName }>{ user.userInfos.firstName }</span></h1>
-                        <span className={ style.personalizedMessage }>Personnal message</span>                   
+                        <span className={ style.personalizedMessage }>Félicitations ! Vous avez explosé vos objectifs hier 👏</span>                  
                     </section>
                     <section className={ style.dataContainer }>
                         <div className={ style.nutrientCards }>
@@ -91,13 +95,31 @@ function Dashboard() {
                                 /> 
                             )) }                   
                         </div>
-                        <div className={ style.graph1 }></div>
-                        <div className={ style.graph2 }></div>
-                        <div className={ style.graph3 }></div>
-                        <div className={ style.graph4 }></div>
+                        <div className={ style.graph1 }>
+                            <ActivityGraph
+                                userId={ userId }
+                            />
+                        </div>
+                        <div className={ style.graph2 }>
+                            <AverageSessionsGraph
+                                userId={ userId }
+                            />
+                        </div>
+                        <div className={ style.graph3 }>
+                            <PerformanceGraph
+                                userId={ userId }
+                            />
+                        </div>
+                        <div className={ style.graph4 }>
+                            <ScoreGraph
+                                userId={ userId }
+                            />
+                        </div>
                     </section>
                 </div>
-            : <p>Chargement....</p>}
+            }
+            { isLoadingGet && !isError && <p>En chargement...</p> }
+            { !isLoadingGet && isError && <p>Utilisateur introuvable...</p> }
         </div>
     )
 }

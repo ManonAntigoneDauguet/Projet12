@@ -3,6 +3,7 @@ import React from "react"
 import { getUser } from "../../services/callsAPI"
 import { formateData } from "../../utils/utilFunctions"
 import { useEffect, useState } from "react"
+import { useParams } from 'react-router-dom'
 // assets
 import calorieImg from "../../assets/energy.svg"
 import proteinImg from "../../assets/chicken.svg"
@@ -17,8 +18,7 @@ import PerformanceGraph from "../../components/graphics/performance"
 
 
 function Dashboard() {
-    const searchParams = new URLSearchParams(window.location.search)
-    const userId = searchParams.get("userId")
+    const { userId } = useParams()
     const [isLoadingGet, updateIsLoadingGet] = useState(true)
     const [isError, updateIsError] = useState(false)
     const [user, updateUser] = useState()

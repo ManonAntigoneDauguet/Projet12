@@ -22,10 +22,11 @@ function Dashboard() {
     const [isLoadingGet, updateIsLoadingGet] = useState(true)
     const [isError, updateIsError] = useState(false)
     const [user, updateUser] = useState()
+    const isMockedData = false
     let nutrientCardsContent = []
 
     const getInformations = async() => {
-        const newUser = await getUser(userId, false) 
+        const newUser = await getUser(userId, isMockedData) 
         if (typeof newUser === "object") { 
             updateUser(newUser.data)
         } else {
@@ -98,21 +99,24 @@ function Dashboard() {
                         <div className={ style.graph1 }>
                             <ActivityGraph
                                 userId={ userId }
+                                isMockedData={ isMockedData}
                             />
                         </div>
                         <div className={ style.graph2 }>
                             <AverageSessionsGraph
                                 userId={ userId }
+                                isMockedData={ isMockedData}
                             />
                         </div>
                         <div className={ style.graph3 }>
                             <PerformanceGraph
                                 userId={ userId }
+                                isMockedData={ isMockedData}
                             />
                         </div>
                         <div className={ style.graph4 }>
                             <ScoreGraph
-                                userId={ userId }
+                                score={ user.score ? user.score : user.todayScore }
                             />
                         </div>
                     </section>

@@ -1,11 +1,14 @@
 import style from "./score.module.css"
 
 
-function ScoreGraph({ userId }) {
+function ScoreGraph({ score }) {
 
 
     return (
-        <h2>Score Graph</h2>
+        <div className={ style.graph__content }>
+            <h2>Score Graph</h2>
+            <p>{ score }</p>            
+        </div>
     )
 }
 

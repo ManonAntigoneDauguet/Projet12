@@ -24,6 +24,13 @@
 }
 
 .dataKey {
+    color: rgba(116, 121, 140, 1);
     font-size: 14px;
     font-weight: 500;
+}
+
+@media screen and (max-width: 900px) {
+    .nutrientCard {
+        min-width: 258px;
+    }
 }

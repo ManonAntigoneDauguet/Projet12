@@ -1,3 +1,44 @@
-.graph__content {
-    color: white;
+.graphContainer {
+    position: relative;
+    background-color: var(--secondary-color);
+    border-radius: 6px;   
+    height: 263px;
+    width: 258px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.title {
+    position: absolute;
+    top: 29px; 
+    left: 34px;
+    width: 148px;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.errorMessage {
+    padding-left: 20px;
+}
+
+
+/********************* LINE CHART ****************/
+.graph {
+    position: relative;
+    left: -5px;
+}
+
+.XAxis {
+    font-size: 12px;
+    transform: scaleX(0.92);
+    fill: rgba(255, 255, 255, 0.5);
+}
+
+.tooltip {
+    font-size: 8px;
+    text-align: center;
+    background-color: white;
+    padding: 8px;
 }

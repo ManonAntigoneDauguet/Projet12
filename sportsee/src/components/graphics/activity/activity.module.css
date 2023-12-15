@@ -1,0 +1,33 @@
+.graphContainer {
+    position: relative;
+    background-color: var(--tertiary-color);
+    border-radius: 6px;   
+    height: 320px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    padding: 32px;
+    box-sizing: border-box;
+}
+
+.title {
+    position: absolute;
+    top: 29px; 
+    left: 32px;
+    width: 148px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.errorMessage {
+    padding: 100px 20px;
+}
+
+
+/********************* LINE CHART ****************/
+
+.YAxis, .XAxis {
+    font-size: 14px;
+    fill: rgba(255, 255, 255, 0.5);
+}

@@ -7,12 +7,13 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    overflow: hidden;
 }
 
 .title {
     position: absolute;
     top: 29px; 
-    left: 34px;
+    left: 32px;
     width: 148px;
     font-size: 15px;
     font-weight: 500;
@@ -27,12 +28,12 @@
 /********************* LINE CHART ****************/
 .graph {
     position: relative;
-    left: -5px;
+    left: -4px;
 }
 
 .XAxis {
     font-size: 12px;
-    transform: scaleX(0.92);
+    transform: scaleX(0.85);
     fill: rgba(255, 255, 255, 0.5);
 }
 
@@ -41,4 +42,6 @@
     text-align: center;
     background-color: white;
     padding: 8px;
+    position: relative;
+    bottom: 40px;
 }

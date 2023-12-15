@@ -1,7 +1,7 @@
 import style from "./averageSessions.module.css"
 import { getAverageSessions } from "../../../services/callsAPI"
 import { useState, useEffect } from "react"
-import { LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceArea } from 'recharts'
 
 
 function AverageSessionsGraph({ userId, isMockedData }) {
@@ -51,8 +51,8 @@ function AverageSessionsGraph({ userId, isMockedData }) {
                 dayName = ""
         }
         return (
-        <text x={x+18} y={y+16} dy={-40}>
-            {dayName}
+        <text x={ x+16 } y={ y+16 } dy={ -40 }>
+            { dayName }
         </text>
         )
     }
@@ -61,7 +61,7 @@ function AverageSessionsGraph({ userId, isMockedData }) {
         if (active && payload && payload.length) {
             return (
                 <div className={ style.tooltip }>
-                    <span>{`${payload[0].value } min`}</span>
+                    <span>{ `${ payload[0].value } min` }</span>
                 </div>
             )            
         }
@@ -72,24 +72,46 @@ function AverageSessionsGraph({ userId, isMockedData }) {
         <div className={ style.graphContainer }>
             <h2 className={ style.title }>Durée moyenne des sessions</h2>
             { !isLoadingGet && !isError &&
-
+                <ResponsiveContainer height="100%" width="104%">
                     <LineChart 
-                        title="" 
-                        width={ 270 } 
-                        height={ 263 } 
                         data={ averageSessions.sessions } 
                         className={ style.graph }
                     >
+                    <defs>
+                        <linearGradient 
+                            id="colorUv" 
+                            x1="0%" 
+                            y1="0%" 
+                            x2="100%" 
+                            y2="0%"
+                        >
+                            <stop 
+                                offset="0%" 
+                                stopColor="white" 
+                                stopOpacity={ 0.3 } 
+                            />
+                            <stop 
+                                offset="100%" 
+                                stopColor="white" 
+                                stopOpacity={ 1 } 
+                            />
+                        </linearGradient>
+                    </defs>    
                         <Line 
                             type="monotone" 
                             dataKey="sessionLength" 
-                            stroke="#fff" 
+                            fill= "none"
+                            stroke="url(#colorUv)"
+                            strokeWidth={ 2 }
+                            dot={ false }
+                            activeDot={{ fill: "white", strokeWidth: "1px" }}
+                            strokeLinecap="round"
                         />
                         <XAxis 
                             dataKey="day" 
-                            height={1} 
-                            axisLine={false} 
-                            tickLine={false} 
+                            height={ 1 } 
+                            axisLine={ false } 
+                            tickLine={ false } 
                             tick={ renderCustomAxisTick } 
                             className={ style.XAxis }
                         />
@@ -101,10 +123,20 @@ function AverageSessionsGraph({ userId, isMockedData }) {
                         />
                         <Tooltip 
                             content={ renderCustomTooltip }  
-                            
+                            cursor={ false }
+                            offset={ 5 }
+                        />
+                        <ReferenceArea 
+                            x1={ 5 } 
+                            x2={ 7 } 
+                            y1={ -100 } 
+                            y2={ 100 } 
+                            fill="black" 
+                            fillOpacity={ 0.1 } 
+                            ifOverflow="visible"
                         />
                     </LineChart>
-                
+                </ResponsiveContainer>
             }
             { isLoadingGet && !isError
                 && <p className={ style.errorMessage }>En chargement...</p> 

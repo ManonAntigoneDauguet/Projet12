@@ -6,11 +6,11 @@ import './newProfil.css';
 function NewProfil() {
   return (
     <div className="App">
-      <Header />
+      {/* <Header /> */}
       <main>
-        <div className="verticalBarContainer">
+        {/* <div className="verticalBarContainer">
           <VerticalBar />   
-        </div>
+        </div> */}
         <div className="dashboardContainer">
           <Dashboard />          
         </div>

@@ -26,8 +26,29 @@
 
 
 /********************* LINE CHART ****************/
-
 .YAxis, .XAxis {
     font-size: 14px;
-    fill: rgba(255, 255, 255, 0.5);
+}
+
+.tooltip {
+    font-size: 8px;
+    text-align: center;
+    color: white;
+    background-color: var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 39px;
+    height: 63px;
+}
+
+.legendContainer {
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 45px;
+    position: absolute;
+    bottom: 68px;
+    right: 0;
 }

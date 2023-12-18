@@ -7,7 +7,8 @@
     display: flex;
     flex-direction: column;
     justify-content: end;
-    padding: 32px;
+    overflow: hidden;
+    padding: 32px 30px 32px 38px;
     box-sizing: border-box;
 }
 
@@ -26,8 +27,15 @@
 
 
 /********************* LINE CHART ****************/
-.YAxis, .XAxis {
+/* .graph {
+    padding: 14px 0px;
+} */
+
+.YAxis, .XAxis, .legendDetails {
     font-size: 14px;
+    font-weight: 500;
+    fill: rgba(155, 158, 172, 1);
+    color: rgba(155, 158, 172, 1);
 }
 
 .tooltip {

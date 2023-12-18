@@ -39,12 +39,12 @@ function ActivityGraph({ userId, isMockedData }) {
         return (
             <ul className={ style.legendContainer } >
                 <li style={{ color: `${payload[0].color}` }}>
-                    <span style={{ color: "gray", fontSize: "14px" }}>
+                    <span className={ style.legendDetails } >
                         Poids (kg)
                     </span>
                 </li>
                 <li style={{ color: `${payload[1].color}` }}>
-                    <span style={{ color: "gray", fontSize: "14px" }}>
+                    <span className={ style.legendDetails }>
                         Calories brûlées (kCal)
                     </span>
                 </li>
@@ -52,14 +52,32 @@ function ActivityGraph({ userId, isMockedData }) {
         )
     }
 
+    const renderCustomXAxisTick = ({ x, y, payload }) => {
+        return (
+            <text x={ x-4 } y={ y+24 } dy={ 0 }>
+                { payload.index + 1 }
+            </text>
+        )       
+    }
+
+    const renderCustomYAxisTick = ({ x, y, payload }) => {
+        return (
+            <text x={ x+16 } y={ y } dy={ 0 }>
+                { payload.value }
+            </text>
+        )       
+    }
+
     return (
         <div className={ style.graphContainer }>
-            <h2 className={ style.title }>Activity Graph</h2>
+            <h2 className={ style.title }>Activité quotidienne</h2>
             { !isLoadingGet && !isError &&
                 <ResponsiveContainer height="70%" width="100%">
                     <BarChart
                         data={ activity }
                         className={ style.graph }
+                        barSize={ 8 }
+                        barGap={ 8 }
                     >
                         <CartesianGrid 
                             strokeDasharray="2 2" 
@@ -69,7 +87,11 @@ function ActivityGraph({ userId, isMockedData }) {
                         <XAxis 
                             dataKey="day"
                             tickLine={ false } 
-                            axisLine={{ stroke: 'gray' }}
+                            axisLine={{ stroke: 'rgba(155, 158, 172, 1)' }}
+                            tick={ renderCustomXAxisTick }
+                            height={ 30 }
+                            interval={ 0 }
+                            padding={{ left: 0, right: 0 }}
                             className={ style.XAxis }
                         />
                         <YAxis 
@@ -78,14 +100,16 @@ function ActivityGraph({ userId, isMockedData }) {
                             tickLine={ false } 
                             yAxisId="right"
                             orientation="right"
-                            tickCount={ 4 }
-                            domain={['dataMin-3', "dataMax+3"]}
+                            tickCount={ 3 }
+                            domain={['dataMin-1', "auto"]}
+                            tick={ renderCustomYAxisTick }
+                            tickMargin={ 20 }
                             className={ style.YAxis }
                         />
                         <YAxis 
                             dataKey="calories"
                             yAxisId="left"
-                            domain={[0, 'dataMax+10']}
+                            domain={[0, 'dataMax']}
                             hide
                         />
                         <Legend 
@@ -102,7 +126,6 @@ function ActivityGraph({ userId, isMockedData }) {
                             yAxisId="right"
                             fill="rgba(40, 45, 48, 1)"
                             radius={[ 10, 10, 0, 0 ]}
-                            barSize={ 8 }
                         />
                         <Bar 
                             dataKey="calories" 
@@ -110,7 +133,6 @@ function ActivityGraph({ userId, isMockedData }) {
                             yAxisId="left"
                             fill="rgba(255, 0, 0, 1)"
                             radius={[ 10, 10, 0, 0 ]}
-                            barSize={ 8 }
                         />
                     </BarChart>
                 </ResponsiveContainer>

@@ -96,7 +96,7 @@ function Dashboard() {
                                 /> 
                             )) }                   
                         </div>
-                        <div className={ style.graph1 }>
+                        {/* <div className={ style.graph1 }>
                             <ActivityGraph
                                 userId={ userId }
                                 isMockedData={ isMockedData}
@@ -107,18 +107,18 @@ function Dashboard() {
                                 userId={ userId }
                                 isMockedData={ isMockedData}
                             />
-                        </div>
+                        </div> */}
                         <div className={ style.graph3 }>
                             <PerformanceGraph
                                 userId={ userId }
                                 isMockedData={ isMockedData}
                             />
                         </div>
-                        <div className={ style.graph4 }>
+                        {/* <div className={ style.graph4 }>
                             <ScoreGraph
                                 score={ user.score ? user.score : user.todayScore }
                             />
-                        </div>
+                        </div> */}
                     </section>
                 </div>
             }

@@ -27,15 +27,16 @@
 
 
 /********************* LINE CHART ****************/
-/* .graph {
-    padding: 14px 0px;
-} */
-
-.YAxis, .XAxis, .legendDetails {
+.YAxis, .XAxis {
     font-size: 14px;
     font-weight: 500;
     fill: rgba(155, 158, 172, 1);
-    color: rgba(155, 158, 172, 1);
+}
+
+.legendDetails {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(116, 121, 140, 1);
 }
 
 .tooltip {
@@ -48,6 +49,9 @@
     justify-content: space-around;
     width: 39px;
     height: 63px;
+    position: absolute;
+    left: 25px;
+    top: -30px;
 }
 
 .legendContainer {
@@ -59,4 +63,20 @@
     position: absolute;
     bottom: 68px;
     right: 0;
+}
+
+.cursor {
+    background-color: rgba(196, 196, 196, 0.5);
+    width: 58px;
+    height: 140px;
+    position: relative;
+    top: 4px;
+    left: -40px;
+    opacity: 0.5;
+}
+
+@media screen and (min-width: 900px) and (max-width: 1100px) {
+    .legendContainer {
+        bottom: 20px;
+    }
 }

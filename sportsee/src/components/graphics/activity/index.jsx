@@ -26,10 +26,14 @@ function ActivityGraph({ userId, isMockedData }) {
     const renderCustomTooltip = ({ active, payload }) => {
         if (active && payload && payload.length) {
             return (
-                <div className={ style.tooltip }>
-                    <span>{ `${ payload[0].value }${ payload[0].unit }` }</span>
-                    <span>{ `${ payload[1].value }${ payload[1].unit }` }</span>
+                <div>
+                    <div className={ style.tooltip }>
+                        <span>{ `${ payload[0].value }${ payload[0].unit }` }</span>
+                        <span>{ `${ payload[1].value }${ payload[1].unit }` }</span>
+                    </div>     
+                    <div className={ style.cursor }></div>               
                 </div>
+
             )            
         }
         return null
@@ -62,7 +66,7 @@ function ActivityGraph({ userId, isMockedData }) {
 
     const renderCustomYAxisTick = ({ x, y, payload }) => {
         return (
-            <text x={ x+16 } y={ y } dy={ 0 }>
+            <text x={ x+16 } y={ y+2 } dy={ 0 }>
                 { payload.value }
             </text>
         )       
@@ -72,12 +76,15 @@ function ActivityGraph({ userId, isMockedData }) {
         <div className={ style.graphContainer }>
             <h2 className={ style.title }>Activité quotidienne</h2>
             { !isLoadingGet && !isError &&
-                <ResponsiveContainer height="70%" width="100%">
+                <ResponsiveContainer height="70%" width="100%" >
                     <BarChart
                         data={ activity }
                         className={ style.graph }
                         barSize={ 8 }
                         barGap={ 8 }
+                        {...{
+                            overflow: 'visible'
+                        }}
                     >
                         <CartesianGrid 
                             strokeDasharray="2 2" 
@@ -89,9 +96,9 @@ function ActivityGraph({ userId, isMockedData }) {
                             tickLine={ false } 
                             axisLine={{ stroke: 'rgba(155, 158, 172, 1)' }}
                             tick={ renderCustomXAxisTick }
-                            height={ 30 }
                             interval={ 0 }
-                            padding={{ left: 0, right: 0 }}
+                            padding={{ left: 12, right: 12 }}
+                            scale="point"
                             className={ style.XAxis }
                         />
                         <YAxis 
@@ -100,7 +107,7 @@ function ActivityGraph({ userId, isMockedData }) {
                             tickLine={ false } 
                             yAxisId="right"
                             orientation="right"
-                            tickCount={ 3 }
+                            interval={ 1 }
                             domain={['dataMin-1', "auto"]}
                             tick={ renderCustomYAxisTick }
                             tickMargin={ 20 }
@@ -118,7 +125,8 @@ function ActivityGraph({ userId, isMockedData }) {
                         />
                         <Tooltip 
                             content={ renderCustomTooltip }
-                            offset={ 45 }
+                            position={{ y: 0 }}
+                            allowEscapeViewBox={{ x: true, y: true }}
                         />                        
                         <Bar 
                             dataKey="kilogram" 

@@ -1,6 +1,5 @@
 import style from "./dashboard.module.css"
 import React from "react"
-import { formateData } from "../../utils/utilFunctions"
 import { formatUser } from "../../services/dataFormatter.service"
 import { useEffect, useState } from "react"
 import { useParams } from 'react-router-dom'
@@ -79,8 +78,15 @@ function Dashboard() {
             { !isLoadingGet && !isError &&
                 <div className={ style.dashboard__content }>
                     <section>
-                        <h1>Bonjour <span className={ style.userName }>{ user.userInfos.firstName }</span></h1>
-                        <span className={ style.personalizedMessage }>Félicitations ! Vous avez explosé vos objectifs hier 👏</span>                  
+                        <h1>
+                            Bonjour   
+                            <span className={ style.userName }>
+                                { ` ${user.userInfos.firstName}` }
+                            </span>
+                        </h1>
+                        <span className={ style.personalizedMessage }>
+                            Félicitations ! Vous avez explosé vos objectifs hier 👏
+                        </span>                  
                     </section>
                     <section className={ style.dataContainer }>
                         <div className={ style.nutrientCards }>
@@ -90,7 +96,7 @@ function Dashboard() {
                                     img={ Object.values(img) }
                                     title={ title }
                                     color={ color }
-                                    data={[`${ formateData(data) }`, `${ unit }`].join('')}
+                                    data={[`${ data }`, `${ unit }`].join('')}
                                 /> 
                             )) }                   
                         </div>
@@ -111,14 +117,16 @@ function Dashboard() {
                         </div>
                         <div className={ style.graph4 }>
                             <ScoreGraph
-                                score={ user.score ? user.score : user.todayScore }
+                                score={ user.score }
                             />
                         </div>
                     </section>
                 </div>
             }
-            { isLoadingGet && !isError && <p>En chargement...</p> }
-            { !isLoadingGet && isError && <p>Utilisateur introuvable...</p> }
+            { isLoadingGet && !isError 
+                && <p>En chargement...</p> }
+            { !isLoadingGet && isError 
+                && <p>Utilisateur introuvable...</p> }
         </div>
     )
 }

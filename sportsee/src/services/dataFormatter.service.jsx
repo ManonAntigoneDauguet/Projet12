@@ -2,6 +2,15 @@ import mockedData from "../mockedData/mockedUser.json"
 import { getActivity, getAverageSessions, getUser, getPerformance } from "./api.service"
 
 const isMockedData = false
+function splitThousand(data) {
+    data = Array.from(String(data))
+    let length = data.length
+    if (length > 3) {
+        data.splice(length - 3, 0, ",")
+        data.push("k")
+    }
+    return data.join('')
+}
 
 async function formatPerformance(userId) {
     let data
@@ -106,7 +115,25 @@ async function formatUser(userId) {
         data = await getUser(userId)   
     }
 
-    return data.data
+    let formatedData = {
+        "data": {
+            "id": data.data.id,
+            "userInfos": {
+                "firstName": data.data.userInfos.firstName,
+                "lastName": data.data.userInfos.lastName,
+                "age": data.data.userInfos.age
+            },
+            "score": data.data.score ? data.data.score : data.data.todayScore,
+            "keyData": {
+                "calorieCount": splitThousand(data.data.keyData.calorieCount),
+                "proteinCount": splitThousand(data.data.keyData.proteinCount),
+                "carbohydrateCount": splitThousand(data.data.keyData.carbohydrateCount),
+                "lipidCount": splitThousand(data.data.keyData.lipidCount)
+            }
+        }
+    }
+
+    return formatedData.data
 }
 
 export { formatPerformance, formatActivity, formatAverageSessions, formatUser }

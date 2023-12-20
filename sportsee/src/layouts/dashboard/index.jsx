@@ -1,7 +1,7 @@
 import style from "./dashboard.module.css"
 import React from "react"
-import { getUser } from "../../services/api.service"
 import { formateData } from "../../utils/utilFunctions"
+import { formatUser } from "../../services/dataFormatter.service"
 import { useEffect, useState } from "react"
 import { useParams } from 'react-router-dom'
 // assets
@@ -22,7 +22,6 @@ function Dashboard() {
     const [isLoadingGet, updateIsLoadingGet] = useState(true)
     const [isError, updateIsError] = useState(false)
     const [user, updateUser] = useState()
-    const isMockedData = false
     let nutrientCardsContent = []
 
     if (typeof user === "object") {
@@ -64,16 +63,16 @@ function Dashboard() {
 
     useEffect(() => {
         const getInformations = async() => {
-            const newUser = await getUser(userId, isMockedData) 
+            const newUser = await formatUser(userId) 
             if (typeof newUser === "object") { 
-                updateUser(newUser.data)
+                updateUser(newUser)
             } else {
                 updateIsError(true)
             }
             updateIsLoadingGet(false)
         }
         getInformations()
-    }, [userId, isMockedData])
+    }, [ userId ])
 
     return (
         <div className={ style.dashboard }>
@@ -98,13 +97,11 @@ function Dashboard() {
                         <div className={ style.graph1 }>
                             <ActivityGraph
                                 userId={ userId }
-                                isMockedData={ isMockedData}
                             />
                         </div>
                         <div className={ style.graph2 }>
                             <AverageSessionsGraph
                                 userId={ userId }
-                                isMockedData={ isMockedData}
                             />
                         </div>
                         <div className={ style.graph3 }>

@@ -1,59 +1,32 @@
 import style from "./averageSessions.module.css"
-import { getAverageSessions } from "../../../services/api.service"
+import { formatAverageSessions } from "../../../services/dataFormatter.service"
 import { useState, useEffect } from "react"
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceArea } from 'recharts'
 
 
-function AverageSessionsGraph({ userId, isMockedData }) {
+function AverageSessionsGraph({ userId }) {
     const [isLoadingGet, updateIsLoadingGet] = useState(true)
     const [isError, updateIsError] = useState(false)
     const [averageSessions, updateData] = useState()
-    
-    const getInformations = async() => {
-        const averageSessionsData = await getAverageSessions(userId, isMockedData) 
-        if (typeof averageSessionsData === "object") { 
-            updateData(averageSessionsData.data)
-        } else {
-            updateIsError(true)
-        }
-        updateIsLoadingGet(false)
-    }
 
     useEffect(() => {
+        const getInformations = async() => {
+            const averageSessionsData = await formatAverageSessions(userId) 
+            if (typeof averageSessionsData === "object") { 
+                updateData(averageSessionsData)
+            } else {
+                updateIsError(true)
+            }
+            updateIsLoadingGet(false)
+        }        
         getInformations()
-    }, [])
+    }, [ userId ])
 
     const renderCustomAxisTick = ({ x, y, payload }) => {
-        let dayName = ""
-        switch (payload.value) {
-            case 1 : 
-                dayName = "L"
-                break
-            case 2 : 
-                dayName = "M"
-                break
-            case 3 : 
-                dayName = "M"
-                break
-            case 4 : 
-                dayName = "J"
-                break
-            case 5 : 
-                dayName = "V"
-                break
-            case 6 : 
-                dayName = "S"
-                break
-            case 7 : 
-                dayName = "D"
-                break
-            default :
-                dayName = ""
-        }
         return (
-        <text x={ x+16 } y={ y+16 } dy={ -40 }>
-            { dayName }
-        </text>
+            <text x={ x+16 } y={ y+16 } dy={ -40 }>
+                { payload.value }
+            </text>
         )
     }
 
@@ -74,7 +47,7 @@ function AverageSessionsGraph({ userId, isMockedData }) {
             { !isLoadingGet && !isError &&
                 <ResponsiveContainer height="100%" width="104%">
                     <LineChart 
-                        data={ averageSessions.sessions } 
+                        data={ averageSessions } 
                         className={ style.graph }
                     >
                     <defs>

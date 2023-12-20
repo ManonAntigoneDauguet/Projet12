@@ -57,14 +57,6 @@ h1 .userName {
     }
 }
 
-.graph1, .graph2, .graph3, .graph4 {
-    /* width: 100%;
-    min-width: 100px;
-    height: 100%;
-    min-height: 50px; */
-    border-radius: 6px;    
-}
-
 .graph1 {
     grid-column: 1 / 4;
     grid-row: 1 / 2;
@@ -80,8 +72,8 @@ h1 .userName {
     grid-row: 2 / 3;
 }
 
-.graph4 {   
+/* .graph4 {   
     grid-column: 3 / 4;
     grid-row: 2 / 3;
     background-color: var(--tertiary-color);
-}
+} */

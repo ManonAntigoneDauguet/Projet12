@@ -1,0 +1,58 @@
+.graphContainer {
+    position: relative;
+    background-color: var(--tertiary-color);
+    color: black;
+    border-radius: 6px;   
+    height: 263px;
+    width: 258px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.title {
+    position: absolute;
+    top: 24px; 
+    left: 30px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.errorMessage {
+    padding-left: 20px;
+}
+
+
+/********************* LINE CHART ****************/
+.legendContainer {
+    position: absolute;
+    bottom: 46px;
+    left: 43px;
+    background-color: white;
+    border-radius: 50%;
+    width: 159px;
+    height: 159px;
+    border: solid 2px white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.legend {
+    position: relative;
+    top: 18px;
+    width: 95px;
+    text-align: center;
+    line-height: 26px;
+    font-size: 16px;
+    color: rgba(116, 121, 140, 1);
+    font-weight: 500;
+}
+
+.percent {
+    font-size: 26px;
+    color: black;
+    font-weight: 700;
+    padding-bottom: 5px;
+}

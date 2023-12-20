@@ -2,6 +2,7 @@ import mockedData from "../mockedData/mockedUser.json"
 import { getActivity, getAverageSessions, getUser, getPerformance } from "./api.service"
 
 const isMockedData = false
+
 function splitThousand(data) {
     data = Array.from(String(data))
     let length = data.length
@@ -123,7 +124,11 @@ async function formatUser(userId) {
                 "lastName": data.data.userInfos.lastName,
                 "age": data.data.userInfos.age
             },
-            "score": data.data.score ? data.data.score : data.data.todayScore,
+            "score": [
+                {
+                "value": (data.data.score ? data.data.score : data.data.todayScore)*100
+                }
+            ],
             "keyData": {
                 "calorieCount": splitThousand(data.data.keyData.calorieCount),
                 "proteinCount": splitThousand(data.data.keyData.proteinCount),

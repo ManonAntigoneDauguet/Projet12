@@ -1,3 +1,32 @@
-.graph__content {
+.graphContainer {
+    position: relative;
+    background-color: var(--primary-color);
     color: white;
+    border-radius: 6px;   
+    height: 263px;
+    width: 258px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    box-sizing: border-box;
+}
+
+.title {
+    position: absolute;
+    top: 5px; 
+    left: 5px;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0);
+}
+
+.errorMessage {
+    padding: 100px 20px;
+}
+
+
+/********************* LINE CHART ****************/
+.axis {
+    font-size: 12px;
+    fill: white;
 }

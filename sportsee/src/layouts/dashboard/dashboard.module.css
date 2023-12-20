@@ -78,7 +78,6 @@ h1 .userName {
 .graph3 {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
-    background-color: var(--primary-color);
 }
 
 .graph4 {   

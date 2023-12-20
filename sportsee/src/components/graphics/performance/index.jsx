@@ -1,39 +1,80 @@
 import style from "./performance.module.css"
-import { getPerformance } from "../../../services/callsAPI"
+import { formatPerformance } from "../../../services/dataFormatter.service"
 import { useState, useEffect } from "react"
+import { ResponsiveContainer, RadarChart, PolarGrid, Radar, PolarAngleAxis, PolarRadiusAxis } from 'recharts'
 
 
-function PerformanceGraph({ userId, isMockedData }) {
+function PerformanceGraph({ userId }) {
     const [isLoadingGet, updateIsLoadingGet] = useState(true)
     const [isError, updateIsError] = useState(false)
     const [performance, updateData] = useState()
 
-    const getInformations = async() => {
-        const performanceData = await getPerformance(userId, isMockedData) 
-        if (typeof performanceData === "object") { 
-            updateData(performanceData.data)
-        } else {
-            updateIsError(true)
+    useEffect(() => {
+        const getInformations = async() => {
+            const performanceData = await formatPerformance(userId) 
+            if (typeof performanceData === "object") { 
+                updateData(performanceData)
+            } else {
+                updateIsError(true)
+            }
+            updateIsLoadingGet(false)
         }
-        updateIsLoadingGet(false)
+        getInformations()
+    }, [ userId ])
+
+    const renderCustomAxisTick = ({ x, y, cx, cy, payload }) => {
+        return (
+            <text 
+                x={ x + (x - cx) / 7 } 
+                y={ (y + 5) + (y - cy) / 20 } 
+                textAnchor="middle"
+                className={ style.axis }
+            >
+                { payload.value }
+            </text>
+        )
     }
 
-    useEffect(() => {
-        getInformations()
-    }, [])
-
     return (
-        <div className={ style.graph__content }>
+        <div className={ style.graphContainer }>
+            <h2 className={ style.title }>Performances</h2>            
             { !isLoadingGet && !isError &&
-                <div>
-                    <h2>Performance Graph</h2>    
-                    { performance.data.map(({ kind, value }) => (
-                        <p key={ kind }>{ value }</p>
-                    ))}
-                </div>
+                <ResponsiveContainer height="100%" width="100%">
+                    <RadarChart
+                        data={ performance }
+                        outerRadius="80%"
+                        innerRadius="10%"
+                        overflow= 'visible'
+                    >
+                        <PolarGrid 
+                            radialLines={false} 
+                            stroke="white"
+                            polarRadius={[0, 10, 22, 47, 70, 95]} 
+                        />
+                        <PolarAngleAxis 
+                            dataKey="kind" 
+                            stroke="white" 
+                            axisLine={ false }
+                            tickLine={ false } 
+                            tick={ renderCustomAxisTick }
+                        />
+                        <PolarRadiusAxis 
+                            domain={[0, "dataMax+20"]}
+                            axisLine={ false }
+                            tick={ false }
+                        />
+                        <Radar 
+                            name="Performance" 
+                            dataKey="value" 
+                            fill="rgba(255, 1, 1, 0.7)" 
+                        />
+                    </RadarChart>
+                </ResponsiveContainer>
             }
-            { isLoadingGet && !isError && <p>En chargement...</p> }
-            { !isLoadingGet && isError && <p>Utilisateur introuvable...</p> }
+            { isLoadingGet && !isError
+                && <p className={ style.errorMessage }>En chargement...</p> }
+            { !isLoadingGet && isError 
+                && <p className={ style.errorMessage }>Utilisateur introuvable...</p> }
         </div>
     )
 }

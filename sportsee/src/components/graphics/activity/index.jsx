@@ -1,27 +1,26 @@
 import style from "./activity.module.css"
-import { getActivity } from "../../../services/api.service"
+import { formatActivity } from "../../../services/dataFormatter.service"
 import { useState, useEffect } from "react"
-import { XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, Rectangle } from 'recharts'
+import { XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar } from 'recharts'
 
 
-function ActivityGraph({ userId, isMockedData }) {
+function ActivityGraph({ userId }) {
     const [isLoadingGet, updateIsLoadingGet] = useState(true)
     const [isError, updateIsError] = useState(false)
     const [activity, updateData] = useState()
 
-    const getInformations = async() => {
-        const activityData = await getActivity(userId, isMockedData) 
-        if (typeof activityData === "object") { 
-            updateData(activityData.data.sessions)
-        } else {
-            updateIsError(true)
-        }
-        updateIsLoadingGet(false)
-    }
-
     useEffect(() => {
+        const getInformations = async() => {
+            const activityData = await formatActivity(userId) 
+            if (typeof activityData === "object") { 
+                updateData(activityData)
+            } else {
+                updateIsError(true)
+            }
+            updateIsLoadingGet(false)
+        }        
         getInformations()
-    }, [])
+    }, [ userId ])
 
     const renderCustomTooltip = ({ active, payload }) => {
         if (active && payload && payload.length) {
@@ -33,7 +32,6 @@ function ActivityGraph({ userId, isMockedData }) {
                     </div>     
                     <div className={ style.cursor }></div>               
                 </div>
-
             )            
         }
         return null

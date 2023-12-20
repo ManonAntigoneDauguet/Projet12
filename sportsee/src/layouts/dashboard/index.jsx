@@ -1,6 +1,6 @@
 import style from "./dashboard.module.css"
 import React from "react"
-import { getUser } from "../../services/callsAPI"
+import { getUser } from "../../services/api.service"
 import { formateData } from "../../utils/utilFunctions"
 import { useEffect, useState } from "react"
 import { useParams } from 'react-router-dom'
@@ -24,16 +24,6 @@ function Dashboard() {
     const [user, updateUser] = useState()
     const isMockedData = false
     let nutrientCardsContent = []
-
-    const getInformations = async() => {
-        const newUser = await getUser(userId, isMockedData) 
-        if (typeof newUser === "object") { 
-            updateUser(newUser.data)
-        } else {
-            updateIsError(true)
-        }
-        updateIsLoadingGet(false)
-    }
 
     if (typeof user === "object") {
         nutrientCardsContent = [
@@ -73,8 +63,17 @@ function Dashboard() {
     }
 
     useEffect(() => {
+        const getInformations = async() => {
+            const newUser = await getUser(userId, isMockedData) 
+            if (typeof newUser === "object") { 
+                updateUser(newUser.data)
+            } else {
+                updateIsError(true)
+            }
+            updateIsLoadingGet(false)
+        }
         getInformations()
-    }, [])
+    }, [userId, isMockedData])
 
     return (
         <div className={ style.dashboard }>
@@ -96,7 +95,7 @@ function Dashboard() {
                                 /> 
                             )) }                   
                         </div>
-                        {/* <div className={ style.graph1 }>
+                        <div className={ style.graph1 }>
                             <ActivityGraph
                                 userId={ userId }
                                 isMockedData={ isMockedData}
@@ -107,18 +106,17 @@ function Dashboard() {
                                 userId={ userId }
                                 isMockedData={ isMockedData}
                             />
-                        </div> */}
+                        </div>
                         <div className={ style.graph3 }>
                             <PerformanceGraph
                                 userId={ userId }
-                                isMockedData={ isMockedData}
                             />
                         </div>
-                        {/* <div className={ style.graph4 }>
+                        <div className={ style.graph4 }>
                             <ScoreGraph
                                 score={ user.score ? user.score : user.todayScore }
                             />
-                        </div> */}
+                        </div>
                     </section>
                 </div>
             }

@@ -1,60 +1,37 @@
 import style from "./performance.module.css"
-import { getPerformance } from "../../../services/callsAPI"
+import { formatPerformance } from "../../../services/dataFormatter.service"
 import { useState, useEffect } from "react"
-import { Tooltip, ResponsiveContainer, ReferenceArea, RadarChart, PolarGrid, Radar, Legend, PolarAngleAxis, PolarRadiusAxis, RadialBarChart } from 'recharts'
+import { ResponsiveContainer, RadarChart, PolarGrid, Radar, PolarAngleAxis, PolarRadiusAxis } from 'recharts'
 
 
-function PerformanceGraph({ userId, isMockedData }) {
+function PerformanceGraph({ userId }) {
     const [isLoadingGet, updateIsLoadingGet] = useState(true)
     const [isError, updateIsError] = useState(false)
     const [performance, updateData] = useState()
 
-    const getInformations = async() => {
-        const performanceData = await getPerformance(userId, isMockedData) 
-        if (typeof performanceData === "object") { 
-            updateData(performanceData.data)
-        } else {
-            updateIsError(true)
-        }
-        updateIsLoadingGet(false)
-    }
-
     useEffect(() => {
+        const getInformations = async() => {
+            const performanceData = await formatPerformance(userId) 
+            if (typeof performanceData === "object") { 
+                updateData(performanceData)
+            } else {
+                updateIsError(true)
+            }
+            updateIsLoadingGet(false)
+        }
         getInformations()
-    }, [])
+    }, [ userId ])
 
     const renderCustomAxisTick = ({ x, y, cx, cy, payload }) => {
-        let kind = ""
-        switch (payload.index) {
-            case 0 : 
-                kind = "Cardio"
-                break
-            case 1 : 
-                kind = "Energie"
-                break
-            case 2 : 
-                kind = "Endurance"
-                break
-            case 3 : 
-                kind = "Force"
-                break
-            case 4 : 
-                kind = "Vitesse"
-                break
-            case 5 : 
-                kind = "Intensité"
-                break
-            default :
-                kind = ""
-        }
         return (
-        <text 
-            x={ (x - 20) + (x - cx) / 10 } 
-            y={ (y + 5) + (y - cy) / 20 } 
-            className={ style.axis }
-        >
-            { kind }
-        </text>
+            <text 
+                x={ x + (x - cx) / 7 } 
+                y={ (y + 5) + (y - cy) / 20 } 
+                textAnchor="middle"
+                className={ style.axis }
+            >
+                { payload.value }
+            </text>
         )
     }
 
@@ -64,13 +41,10 @@ function PerformanceGraph({ userId, isMockedData }) {
             { !isLoadingGet && !isError &&
                 <ResponsiveContainer height="100%" width="100%">
                     <RadarChart
-                        data={ performance.data }
+                        data={ performance }
                         outerRadius="80%"
                         innerRadius="10%"
-                        className={ style.graph }
-                        {...{
-                            overflow: 'visible'
-                        }}
+                        overflow= 'visible'
                     >
                         <PolarGrid 
                             radialLines={false} 

@@ -1,5 +1,5 @@
 import style from "./activity.module.css"
-import { getActivity } from "../../../services/callsAPI"
+import { getActivity } from "../../../services/api.service"
 import { useState, useEffect } from "react"
 import { XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, Rectangle } from 'recharts'
 
@@ -82,9 +82,7 @@ function ActivityGraph({ userId, isMockedData }) {
                         className={ style.graph }
                         barSize={ 8 }
                         barGap={ 8 }
-                        {...{
-                            overflow: 'visible'
-                        }}
+                        overflow= 'visible'
                     >
                         <CartesianGrid 
                             strokeDasharray="2 2" 

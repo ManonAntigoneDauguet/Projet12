@@ -11,14 +11,10 @@ async function getUser(id, isMockedData) {
     }
 }
 
-async function getPerformance(id, isMockedData) {
-    if (isMockedData) {
-        return mockedData.performance
-    } else {
-        const response = await fetch(`http://localhost:3000/user/${id}/performance`)
-        const user = await response.json()
-        return user        
-    }   
+async function getPerformance(id) {
+    const response = await fetch(`http://localhost:3000/user/${id}/performance`)
+    const user = await response.json()
+    return user         
 }
 
 async function getActivity(id, isMockedData) {

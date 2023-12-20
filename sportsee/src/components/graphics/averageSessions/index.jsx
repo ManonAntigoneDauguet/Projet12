@@ -1,5 +1,5 @@
 import style from "./averageSessions.module.css"
-import { getAverageSessions } from "../../../services/callsAPI"
+import { getAverageSessions } from "../../../services/api.service"
 import { useState, useEffect } from "react"
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceArea } from 'recharts'
 

@@ -1,7 +1,7 @@
 import style from "./iconCard.module.css"
 
 
-function IconCard({ img, alt, color }) {
+function IconCard({ img, alt, color, link }) {
     let colorClass
     switch (color) {
         case 'red':
@@ -20,17 +20,31 @@ function IconCard({ img, alt, color }) {
         colorClass =  (style.white) 
     }
 
-    return (
-        <a href="/" className={[
-            `${ style.iconCard }`, 
-            `${colorClass}`
-            ].join(' ')}>
-            <img 
-                src={ img } 
-                alt={ alt } 
-            />
-        </a>        
-    )
+    if (link !== undefined) {
+        return (
+            <a href={ link } className={[
+                `${ style.iconCard }`, 
+                `${colorClass}`
+                ].join(' ')}>
+                <img 
+                    src={ img } 
+                    alt={ alt } 
+                />
+            </a> 
+        )
+    } else {
+        return (
+            <div className={[
+                `${ style.iconCard }`, 
+                `${colorClass}`
+                ].join(' ')}>
+                <img 
+                    src={ img } 
+                    alt={ alt } 
+                />
+            </div> 
+        )        
+    }
 }
 
 export default IconCard

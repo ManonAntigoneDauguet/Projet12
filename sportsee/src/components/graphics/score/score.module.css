@@ -4,7 +4,8 @@
     color: black;
     border-radius: 6px;   
     height: 263px;
-    width: 258px;
+    max-width: 258px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -27,13 +28,19 @@
 /********************* LINE CHART ****************/
 .legendContainer {
     position: absolute;
-    bottom: 46px;
-    left: 43px;
+    height: 263px;
+    width: 100%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle {
     background-color: white;
     border-radius: 50%;
-    width: 159px;
-    height: 159px;
-    border: solid 2px white;
+    aspect-ratio : 1 / 1;
+    width: 63%;
     display: flex;
     justify-content: center;
     align-items: center;

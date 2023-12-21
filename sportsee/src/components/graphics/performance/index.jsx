@@ -74,7 +74,7 @@ function PerformanceGraph({ userId }) {
             { isLoadingGet && !isError
                 && <p className={ style.errorMessage }>En chargement...</p> }
             { !isLoadingGet && isError 
-                && <p className={ style.errorMessage }>Utilisateur introuvable...</p> }
+                && <p className={ style.errorMessage }>Erreur de chargement des données...</p> }
         </div>
     )
 }

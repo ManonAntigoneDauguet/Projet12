@@ -6,26 +6,41 @@ import meditationImg from "../../assets/meditation.svg"
 import swimmingImg from "../../assets/swimming.svg"
 
 
+const iconCardsContent = [
+    {
+        "id": 1,
+        "alt": "méditation",
+        "img": { meditationImg }
+    },
+    {
+        "id": 2,
+        "alt": "natation",
+        "img": { swimmingImg }
+    },
+    {
+        "id": 3,
+        "alt": "cyclisme",
+        "img": { cyclingImg }
+    },
+    {
+        "id": 4,
+        "alt": "musculation",
+        "img": { bodybuildingImg }
+    }
+]
+
 function VerticalBar() {
     return (
         <div className={ style.verticalBar }>
             <nav aria-label="nav-2">
-                <IconCard
-                    img={ meditationImg }
-                    alt="méditation"
-                />
-                <IconCard 
-                    img={ swimmingImg }
-                    alt="natation"
-                />
-                <IconCard 
-                    img={ cyclingImg }
-                    alt="cyclisme"
-                />
-                <IconCard 
-                    img={ bodybuildingImg }
-                    alt="musculation"
-                />
+                { iconCardsContent.map(({ id, alt, img }) => (
+                    <IconCard
+                        key={ id }
+                        img={ Object.values(img) }
+                        alt={ alt }
+                        link="/"
+                    />                  
+                )) }
             </nav>
             <div className={ style.copyrithContainer }>
                 <span>Copyright, SportSee 2020</span>                

@@ -1,9 +1,14 @@
 import Header from '../../layouts/header'
 import VerticalBar from '../../layouts/verticalBar'
-import Dashboard from '../../layouts/dashboard';
-import './newProfil.css';
+import Dashboard from '../../layouts/dashboard'
+import './newProfile.css'
 
-function NewProfil() {
+
+/**
+ * Return the new profile page
+ * @returns { HTMLElement }
+ */
+function NewProfile() {
   return (
     <div className="App">
       <Header />
@@ -20,4 +25,4 @@ function NewProfil() {
   );
 }
 
-export default NewProfil;
+export default NewProfile

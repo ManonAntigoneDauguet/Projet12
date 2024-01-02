@@ -11,10 +11,11 @@ function ActivityGraph({ userId }) {
 
     useEffect(() => {
         const getInformations = async() => {
-            const activityData = await formatActivity(userId) 
-            if (typeof activityData === "object") { 
+            let activityData
+            try {
+                activityData = await formatActivity(userId) 
                 updateData(activityData)
-            } else {
+            } catch ( error ) {
                 updateIsError(true)
             }
             updateIsLoadingGet(false)

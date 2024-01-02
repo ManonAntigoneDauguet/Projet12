@@ -11,10 +11,11 @@ function AverageSessionsGraph({ userId }) {
 
     useEffect(() => {
         const getInformations = async() => {
-            const averageSessionsData = await formatAverageSessions(userId) 
-            if (typeof averageSessionsData === "object") { 
+            let averageSessionsData
+            try {
+                averageSessionsData = await formatAverageSessions(userId) 
                 updateData(averageSessionsData)
-            } else {
+            } catch ( error ) {
                 updateIsError(true)
             }
             updateIsLoadingGet(false)

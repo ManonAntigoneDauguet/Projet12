@@ -62,10 +62,12 @@ function Dashboard() {
 
     useEffect(() => {
         const getInformations = async() => {
-            const newUser = await formatUser(userId) 
-            if (typeof newUser === "object") { 
+            let newUser
+            try {
+                newUser = await formatUser(userId) 
                 updateUser(newUser)
-            } else {
+            } catch ( error ) {
+                console.error( error )
                 updateIsError(true)
             }
             updateIsLoadingGet(false)

@@ -20,9 +20,9 @@ function IconCard({ img, alt, color, link }) {
         colorClass =  (style.white) 
     }
 
-    if (link !== undefined) {
+    if (navLink !== undefined) {
         return (
-            <a href={ link } className={[
+            <a href={ navLink } className={[
                 `${ style.iconCard }`, 
                 `${colorClass}`
                 ].join(' ')}>

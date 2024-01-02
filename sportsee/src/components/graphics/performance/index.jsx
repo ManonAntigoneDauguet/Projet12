@@ -11,10 +11,11 @@ function PerformanceGraph({ userId }) {
 
     useEffect(() => {
         const getInformations = async() => {
-            const performanceData = await formatPerformance(userId) 
-            if (typeof performanceData === "object") { 
+            let performanceData
+            try {
+                performanceData = await formatPerformance(userId) 
                 updateData(performanceData)
-            } else {
+            } catch ( error ) {
                 updateIsError(true)
             }
             updateIsLoadingGet(false)

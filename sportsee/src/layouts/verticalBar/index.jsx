@@ -38,7 +38,7 @@ function VerticalBar() {
                         key={ id }
                         img={ Object.values(img) }
                         alt={ alt }
-                        link="/"
+                        navLink="/"
                     />                  
                 )) }
             </nav>

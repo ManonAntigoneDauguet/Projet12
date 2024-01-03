@@ -104,9 +104,9 @@ function AverageSessionsGraph({ userId }) {
                             offset={ 5 }
                         />
                         <ReferenceArea 
-                            x1={ 5 } 
-                            x2={ 7 } 
-                            y1={ -100 } 
+                            x1={ 4 } 
+                            x2={ 6 } 
+                            y1={ 0 } 
                             y2={ 100 } 
                             fill="black" 
                             fillOpacity={ 0.1 } 

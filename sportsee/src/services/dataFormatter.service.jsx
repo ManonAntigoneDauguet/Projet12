@@ -3,6 +3,11 @@ import { getActivity, getAverageSessions, getUser, getPerformance } from "./api.
 
 const isMockedData = false
 
+/**
+ * Return a number segmented by increments of a thousand
+ * @param { Number } data 
+ * @returns { String }
+ */
 function splitThousand(data) {
     data = Array.from(String(data))
     let length = data.length
@@ -13,101 +18,96 @@ function splitThousand(data) {
     return data.join('')
 }
 
+
+/**
+ * Return a string with the first letter capitalized
+ * @param { String } string 
+ * @returns { String }
+ */
+function capitalizeFirstLetter( string ) {
+    return string[0].toUpperCase() + string.slice(1)
+}
+
+
+/**
+ * Return the data used for the Performance's radar chart
+ * @param { Number } userId 
+ * @returns { Object.<value: Number, kind: String> }
+ */
 async function formatPerformance(userId) {
-    let data
+    let data; let kind
+    let formatedData = []
     if (isMockedData) {
         data = mockedData.performance
     } else {
        data = await getPerformance(userId)
     }  
+    kind = data.data.kind
+    data = data.data.data
 
-    let formatedData = {
-        "data" : [
-            {
-                "value": data.data.data[5].value,
-                "kind": "Intensité"
-            },
-            {
-                "value": data.data.data[4].value,
-                "kind": "Vitesse"
-            },   
-            {
-                "value": data.data.data[3].value,
-                "kind": "Force"
-            },    
-            {
-                "value": data.data.data[2].value,
-                "kind": "Endurance"
-            },       
-            {
-                "value": data.data.data[1].value,
-                "kind": "Energie"
-            },                                         
-            {
-                "value": data.data.data[0].value,
-                "kind": "Cardio"
-            },
-        ]
+    for (let i = data.length-1; i >= 0; i--) {
+        formatedData.push({
+            "value": data[i].value, 
+            "kind": capitalizeFirstLetter(kind[data[i].kind])
+        })
     }
 
-    return formatedData.data
+    return formatedData
 }
 
+
+/**
+ * Return the data used for the Activity's bar chart
+ * @param { Number } userId 
+ * @returns { Object.<day: String, kilogram: Number, calories: Number> }
+ */
 async function formatActivity(userId) {
     let data
     if (isMockedData) {
         data = mockedData.activity
     } else {
         data = await getActivity(userId)     
-    }  
-    
+    }
+
     return data.data.sessions
 }
 
+
+/**
+ * Return the data used for the AverageSessions's line chart
+ * @param { Number } userId 
+ * @returns { Object.<day: String, sessionLength: Number> }
+ */
 async function formatAverageSessions(userId) {
     let data
+    let days = ["L", "M", "M", "J", "V", "S", "D"]
+    let formatedData = []   
     if (isMockedData) {
         data = mockedData.averageSessions
     } else {
         data = await getAverageSessions(userId)     
     }   
 
-    let formatedData = {
-        "data": [
-            {
-                "day": "L",
-                "sessionLength": data.data.sessions[0].sessionLength
-            },
-            {
-                "day": "M",
-                "sessionLength": data.data.sessions[1].sessionLength
-            },
-            {
-                "day": "M",
-                "sessionLength": data.data.sessions[2].sessionLength
-            },
-            {
-                "day": "J",
-                "sessionLength": data.data.sessions[3].sessionLength
-            },
-            {
-                "day": "V",
-                "sessionLength": data.data.sessions[4].sessionLength
-            },
-            {
-                "day": "S",
-                "sessionLength": data.data.sessions[5].sessionLength
-            },
-            {
-                "day": "D",
-                "sessionLength": data.data.sessions[6].sessionLength
-            }
-        ]
+    for (let i = 0; i < data.data.sessions.length; i++) {
+        formatedData.push({ 
+            "day": days[i], 
+            "sessionLength": data.data.sessions[i].sessionLength
+        })
     }
 
-    return formatedData.data
+    return formatedData
 }
 
+
+/**
+ * Return the main data about the user
+ * @param { Number } userId 
+ * @returns { Object } user
+ * @returns { Number } user.id
+ * @returns { Object.< age: Number, firstName : String, lastName: String > } user.userInfos
+ * @returns { Array.<{ value: Number }> } user.score
+ * @returns { Object.< calorieCount: String, carbohydrateCount: String, lipidCount: String, proteinCount: String > } user.keyData
+ */
 async function formatUser(userId) {
     let data
     if (isMockedData) {
@@ -140,5 +140,6 @@ async function formatUser(userId) {
 
     return formatedData.data
 }
+
 
 export { formatPerformance, formatActivity, formatAverageSessions, formatUser }

@@ -1,3 +1,8 @@
+/**
+ * Get unformated user data
+ * @param { Number } userId 
+ * @returns { Promise }
+ */
 async function getUser(userId) {
     const response = await fetch(`http://localhost:3000/user/${userId}`)
     const user = await response.json()

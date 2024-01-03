@@ -3,6 +3,11 @@ import { useState, useEffect } from "react"
 import { ResponsiveContainer, RadialBarChart, RadialBar, Legend } from 'recharts'
 
 
+/**
+ * Return the Score's radial bar chart.
+ * @param { Number } userId
+ * @returns { HTMLElement }
+ */
 function ScoreGraph({ score }) {
     const [isLoadingGet, updateIsLoadingGet] = useState(true)
     const [isError, updateIsError] = useState(false)

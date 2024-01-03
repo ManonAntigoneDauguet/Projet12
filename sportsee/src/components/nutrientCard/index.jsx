@@ -2,7 +2,15 @@ import style from "./nutrientCard.module.css"
 import IconCard from "../iconCard"
 
 
-function NutrientCard({ img, title, data, color }) {
+/**
+ * Return a card with a icon and a value
+ * @param { String } img 
+ * @param { String } title 
+ * @param { String | Number } data
+ * @param { String } [color]
+ * @returns  { HTMLElement }
+ */
+function NutrientCard({ img, title, data, color  }) {
     return (
         <article className={ style.nutrientCard }>
             <div className={ style.nutrientCard__content }>

@@ -1,15 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import NewProfil from './pages/newProfil'
+import NewProfile from './pages/newProfile'
 import reportWebVitals from './reportWebVitals'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Router>
       <Routes>
-        <Route path="/user/:userId" element={ <NewProfil /> } />
+        <Route path="/user/:userId" element={ <NewProfile /> } />
       </Routes>
     </Router>
   </React.StrictMode>

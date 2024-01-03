@@ -4,6 +4,11 @@ import { useState, useEffect } from "react"
 import { XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar } from 'recharts'
 
 
+/**
+ * Return the Activity's bar chart
+ * @param { Number } userId
+ * @returns { HTMLElement }
+ */
 function ActivityGraph({ userId }) {
     const [isLoadingGet, updateIsLoadingGet] = useState(true)
     const [isError, updateIsError] = useState(false)
@@ -11,10 +16,8 @@ function ActivityGraph({ userId }) {
 
     useEffect(() => {
         const getInformations = async() => {
-            let activityData
-            try {
-                activityData = await formatActivity(userId) 
-                updateData(activityData)
+            try { 
+                updateData( await formatActivity(userId) )
             } catch ( error ) {
                 updateIsError(true)
             }

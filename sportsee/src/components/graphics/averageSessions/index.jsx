@@ -4,6 +4,11 @@ import { useState, useEffect } from "react"
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceArea } from 'recharts'
 
 
+/**
+ * Return the AverageSessions's line chart
+ * @param { Number } userId
+ * @returns { HTMLElement }
+ */
 function AverageSessionsGraph({ userId }) {
     const [isLoadingGet, updateIsLoadingGet] = useState(true)
     const [isError, updateIsError] = useState(false)
@@ -11,10 +16,8 @@ function AverageSessionsGraph({ userId }) {
 
     useEffect(() => {
         const getInformations = async() => {
-            let averageSessionsData
             try {
-                averageSessionsData = await formatAverageSessions(userId) 
-                updateData(averageSessionsData)
+                updateData( await formatAverageSessions(userId) )
             } catch ( error ) {
                 updateIsError(true)
             }

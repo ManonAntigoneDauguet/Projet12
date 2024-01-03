@@ -3,6 +3,11 @@ import { getActivity, getAverageSessions, getUser, getPerformance } from "./api.
 
 const isMockedData = false
 
+/**
+ * Return a number segmented by increments of a thousand
+ * @param { Number } data 
+ * @returns { String }
+ */
 function splitThousand(data) {
     data = Array.from(String(data))
     let length = data.length
@@ -13,6 +18,12 @@ function splitThousand(data) {
     return data.join('')
 }
 
+
+/**
+ * Return the data used for the Performance's radar chart
+ * @param { Number } userId 
+ * @returns { Object.<value: Number, kind: String> }
+ */
 async function formatPerformance(userId) {
     let data
     if (isMockedData) {
@@ -53,17 +64,29 @@ async function formatPerformance(userId) {
     return formatedData.data
 }
 
+
+/**
+ * Return the data used for the Activity's bar chart
+ * @param { Number } userId 
+ * @returns { Object.<day: String, kilogram: Number, calories: Number> }
+ */
 async function formatActivity(userId) {
     let data
     if (isMockedData) {
         data = mockedData.activity
     } else {
         data = await getActivity(userId)     
-    }  
-    
+    }
+
     return data.data.sessions
 }
 
+
+/**
+ * Return the data used for the AverageSessions's line chart
+ * @param { Number } userId 
+ * @returns { Object.<day: String, sessionLength: Number> }
+ */
 async function formatAverageSessions(userId) {
     let data
     if (isMockedData) {
@@ -104,10 +127,20 @@ async function formatAverageSessions(userId) {
             }
         ]
     }
-
+    
     return formatedData.data
 }
 
+
+/**
+ * Return the main data about the user
+ * @param { Number } userId 
+ * @returns { Object } user
+ * @returns { Number } user.id
+ * @returns { Object.< age: Number, firstName : String, lastName: String > } user.userInfos
+ * @returns { Array.<{ value: Number }> } user.score
+ * @returns { Object.< calorieCount: String, carbohydrateCount: String, lipidCount: String, proteinCount: String > } user.keyData
+ */
 async function formatUser(userId) {
     let data
     if (isMockedData) {
@@ -140,5 +173,6 @@ async function formatUser(userId) {
 
     return formatedData.data
 }
+
 
 export { formatPerformance, formatActivity, formatAverageSessions, formatUser }

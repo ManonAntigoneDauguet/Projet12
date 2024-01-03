@@ -4,6 +4,11 @@ import { useState, useEffect } from "react"
 import { ResponsiveContainer, RadarChart, PolarGrid, Radar, PolarAngleAxis, PolarRadiusAxis } from 'recharts'
 
 
+/**
+ * Return the Performance's radar chart
+ * @param { Number } userId
+ * @returns { HTMLElement }
+ */
 function PerformanceGraph({ userId }) {
     const [isLoadingGet, updateIsLoadingGet] = useState(true)
     const [isError, updateIsError] = useState(false)
@@ -11,10 +16,8 @@ function PerformanceGraph({ userId }) {
 
     useEffect(() => {
         const getInformations = async() => {
-            let performanceData
             try {
-                performanceData = await formatPerformance(userId) 
-                updateData(performanceData)
+                updateData( await formatPerformance(userId))
             } catch ( error ) {
                 updateIsError(true)
             }

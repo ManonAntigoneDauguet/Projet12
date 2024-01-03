@@ -29,6 +29,10 @@ const iconCardsContent = [
     }
 ]
 
+/**
+ * Return a vertical nav bar
+ * @returns { HTMLElement }
+ */
 function VerticalBar() {
     return (
         <div className={ style.verticalBar }>

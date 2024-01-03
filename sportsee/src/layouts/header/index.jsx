@@ -3,6 +3,10 @@ import logo from "../../assets/logo.svg"
 import logoName from "../../assets/logoName.svg"
 
 
+/**
+ * Return a horizontal nav bar
+ * @returns  { HTMLElement }
+ */
 function Header() {
     return(
         <header>

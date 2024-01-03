@@ -16,6 +16,10 @@ import AverageSessionsGraph from "../../components/graphics/averageSessions"
 import PerformanceGraph from "../../components/graphics/performance"
 
 
+/**
+ * Return the dynamic dashboard of a specific user
+ * @returns { HTMLElement }
+ */
 function Dashboard() {
     const { userId } = useParams()
     const [isLoadingGet, updateIsLoadingGet] = useState(true)
@@ -62,12 +66,9 @@ function Dashboard() {
 
     useEffect(() => {
         const getInformations = async() => {
-            let newUser
             try {
-                newUser = await formatUser(userId) 
-                updateUser(newUser)
+                updateUser( await formatUser(userId) )
             } catch ( error ) {
-                console.error( error )
                 updateIsError(true)
             }
             updateIsLoadingGet(false)

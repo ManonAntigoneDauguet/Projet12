@@ -1,50 +1,44 @@
 import style from "./iconCard.module.css"
 
 
-function IconCard({ img, alt, color, link }) {
+/**
+ * Return a image as a anchor or a card
+ * @param { String } img
+ * @param { String } alt
+ * @param { String } [color]
+ * @param { String } [navLink] as the path of Router
+ * @returns { HTMLElement }
+ */
+function IconCard({ img, alt, color, navLink }) {
     let colorClass
-    switch (color) {
+    switch ( color ) {
         case 'red':
-            colorClass =  (style.red) 
+            colorClass = ( style.red )
             break
-        case 'blue' :
-            colorClass =  (style.blue) 
+        case 'blue':
+            colorClass = ( style.blue )
             break
-        case 'yellow' :
-            colorClass =  (style.yellow) 
+        case 'yellow':
+            colorClass = ( style.yellow )
             break
-        case 'pink' :
-            colorClass =  (style.pink) 
+        case 'pink':
+            colorClass = ( style.pink )
             break
-        default :
-        colorClass =  (style.white) 
+        default:
+            colorClass = ( style.white )
     }
 
-    if (navLink !== undefined) {
-        return (
-            <a href={ navLink } className={[
-                `${ style.iconCard }`, 
-                `${colorClass}`
-                ].join(' ')}>
-                <img 
-                    src={ img } 
-                    alt={ alt } 
-                />
+    return (
+        navLink !== undefined ? 
+            <a
+                href={ navLink }
+                className={ `${style.iconCard} ${colorClass}` }>
+                <img src={ img } alt={ alt } />
             </a> 
-        )
-    } else {
-        return (
-            <div className={[
-                `${ style.iconCard }`, 
-                `${colorClass}`
-                ].join(' ')}>
-                <img 
-                    src={ img } 
-                    alt={ alt } 
-                />
-            </div> 
-        )        
-    }
+            : <div className={ `${style.iconCard} ${colorClass}` }>
+                <img src={ img } alt={ alt } />
+            </div>
+    )
 }
 
 export default IconCard
